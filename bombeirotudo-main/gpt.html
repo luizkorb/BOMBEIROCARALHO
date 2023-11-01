@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        <style>
+        #image-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        #highlight-box {
+            position: absolute;
+            border: 2px solid red;
+        }
+    
+        #image-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .highlight-box {
+            position: absolute;
+            border: 2px solid red;
+            display: none;
+        }
+
+        .options {
+            position: absolute;
+            background: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+   
+
+    <div>
+        <button id="adultButton" onclick="showImage('adult')">Adulto</button>
+        <button id="childButton" onclick="showImage('child')">Criança</button>
+    </div>
+
+    <div id="image-container">
+        <img src="boneco n se.png" alt="Imagem Adulto" id="imgAdult" usemap="#adultMap" style="display: none;" />
+        <img src="pia.png" alt="Imagem Criança" id="imgChild" usemap="#childMap" style="display: none;" />
+
+        <map name="adultMap">
+            <area shape="rect" coords="50,50,150,150" href="#" alt="Região 1" data-options="Opção 1, Opção 2, Opção 3, Opção 4">
+            <area shape="rect" coords="150,150,250,250" href="#" alt="Região 2" data-options="Opção A, Opção B, Opção C, Opção D">
+            <!-- Adicione mais áreas mapeadas conforme necessário -->
+        </map>
+
+        <map name="childMap">
+            <area shape="rect" coords="30,30,100,100" href="#" alt="Região 1" data-options="Opção X, Opção Y, Opção Z">
+            <area shape="rect" coords="100,100,200,200" href="#" alt="Região 2" data-options="Opção 1, Opção 2, Opção 3">
+            <!-- Adicione mais áreas mapeadas conforme necessário -->
+        </map>
+    </div>
+
+    <div class="options" id="options">
+        <!-- Opções de destaque aqui -->
+    </div>
+
+    <script>
+        function showImage(option) {
+            const imgAdult = document.getElementById('imgAdult');
+            const imgChild = document.getElementById('imgChild');
+            const adultButton = document.getElementById('adultButton');
+            const childButton = document.getElementById('childButton');
+            const options = document.getElementById('options');
+
+            if (option === 'adult') {
+                imgAdult.style.display = 'block';
+                imgChild.style.display = 'none';
+                adultButton.style.backgroundColor = 'red';
+                childButton.style.backgroundColor = 'white';
+            } else if (option === 'child') {
+                imgAdult.style.display = 'none';
+                imgChild.style.display = 'block';
+                adultButton.style.backgroundColor = 'white';
+                childButton.style.backgroundColor = 'red';
+            }
+        }
+
+        const imageContainer = document.getElementById('image-container');
+        const options = document.getElementById('options');
+
+        imageContainer.addEventListener('click', (event) => {
+            const target = event.target;
+            if (target.tagName === 'AREA') {
+                const optionBox = options;
+                optionBox.innerHTML = '';
+                const optionText = target.getAttribute('data-options').split(',');
+                optionText.forEach((text) => {
+                    const option = document.createElement('div');
+                    option.innerText = text.trim();
+                    optionBox.appendChild(option);
+                });
+                optionBox.style.display = 'block';
+            }
+        });
+
+        imageContainer.addEventListener('mouseleave', () => {
+            options.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
