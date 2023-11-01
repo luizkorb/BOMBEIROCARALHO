@@ -7,18 +7,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="local.css">
     <title>local dos traumas</title>
+    <style>
+        #image-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        #highlight-box {
+            position: absolute;
+            border: 2px solid red;
+        }
+    </style>
 </head>
     <body>
 
-
-        <map name="meu_mapa">
-            <area onmouseleave="Esconder();" onmouseover="MostraTexto('cabeca')" shape="circle"coords="257,441,20" href="" target="_blank">
-                <div  class="texto_rs" id="texto_rs" >rio grande do sul</div>
-            <area onmouseleave="Esconder();" onmouseover="MostraTexto('SC')" shape="circle" coords="297,413,20" href="" target="_blank">
-                <div  class="texto_sc" id="texto_sc" >santa catarina</div>
-            <area onmouseleave="Esconder();" onmouseover="MostraTexto('PR')" shape="circle" coords="280,376,20" href="" target="_blank">
-                <div  class="texto_pr" id="texto_pr" >paraná</div>
-            <area shape="circle" coords="315,349,20" href="" target="_blank">
+        
+        
 
         <div class="centro">
             <div class="cabecalho">
@@ -45,12 +49,42 @@
                  <button onclick="mostrarImagem('imagem2')">Criança</button>
             </div>
 
-            <!-- Imagens -->
-            <img id="imagem1" class="imagem" src="boneco n se.png" alt="Imagem 1">
-            <img id="imagem2" class="imagem" src="pia.png" alt="Imagem 2">
+            <div id="image-container">
+                        <img src="boneco n se.png" alt="Imagem 1" id="imagem1" class="imagem" />
+                        <div id="highlight-box"></div>
+            </div>
+            
+            <div id="image-container">
+                <img src="pia.png" alt="Imagem 2" id="imagem2" class="imagem" />
+                <div id="highlight-box"></div>
+            </div>
+
+            
 
            
             <script>
+
+                const imageContainer = document.getElementById('image-container');
+                        const highlightBox = document.getElementById('highlight-box');
+
+                        imageContainer.addEventListener('click', (event) => {
+                            const x = event.clientX - imageContainer.getBoundingClientRect().left;
+                            const y = event.clientY - imageContainer.getBoundingClientRect().top;
+
+                            const img = document.getElementById('imagem1');
+
+                            // Define o tamanho e posição do quadrado de destaque
+                            highlightBox.style.width = '100px'; // Defina o tamanho que desejar
+                            highlightBox.style.height = '100px'; // Defina o tamanho que desejar
+                            highlightBox.style.left = x - 50 + 'px'; // Ajusta o deslocamento do quadrado a partir do clique
+                            highlightBox.style.top = y - 50 + 'px'; // Ajusta o deslocamento do quadrado a partir do clique
+
+                            // Exibe o quadrado de destaque
+                            highlightBox.style.display = 'block';
+                        });
+
+                        
+
                 function mostrarImagem(id) {
                     // Pega todas as imagens
                     var imagens = document.querySelectorAll('.imagem');
